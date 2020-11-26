@@ -1,0 +1,34 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+build:
+  pre_ci_boot:
+    image_name: drydock/u14
+    image_tag: tip
+    pull: false
+    options: '--privileged=true --net=bridge'
+
+  ci:
+    - sudo wget http://mirrors.ibiblio.org/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+    - sudo tar xzf apache-maven-3.3.9-bin.tar.gz -C /usr/local && rm -f apache-maven-3.3.9-bin.tar.gz
+    - ln -fs /usr/local/apache-maven-$3.3.9/bin/mvn /usr/bin
+    - echo "export PATH=$PATH:/usr/local/apache-maven-3.3.9/bin" >> $HOME/.bashrc
+    - mkdir -p shippable/testresults && mkdir -p shippable/codecoverage
+    - /usr/local/apache-maven-3.3.9/bin/mvn -q -B clean cobertura:cobertura install
+    - ls -al $SHIPPABLE_BUILD_DIR/target
+    - jfrog rt u $SHIPPABLE_BUILD_DIR/target/HelloWorld.war builds/HelloWorld.war
+    - ls $SHIPPABLE_BUILD_DIR/target
+
+integrations:
+  hub:
+    - integrationName: #your artifactory integration name
+      type: artifactory
+
+  # notifications:
+  #   - integrationName: #your event trigger integration name
+  #     type: webhook
+  #     payload:
+  #       - versionName=$BUILD_NUMBER
+  #     on_success: always
