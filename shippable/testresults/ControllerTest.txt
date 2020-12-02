@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: ControllerTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 1.689 sec <<< FAILURE! - in ControllerTest
+testNullNameInput(ControllerTest)  Time elapsed: 1.633 sec  <<< ERROR!
+java.lang.NoClassDefFoundError: javax/xml/bind/ValidationException
+	at ControllerTest.setUp(ControllerTest.java:63)
+Caused by: java.lang.ClassNotFoundException: javax.xml.bind.ValidationException
+	at ControllerTest.setUp(ControllerTest.java:63)
+
+testNameInput(ControllerTest)  Time elapsed: 0.051 sec  <<< ERROR!
+java.lang.NoClassDefFoundError: javax/xml/bind/ValidationException
+	at ControllerTest.setUp(ControllerTest.java:63)
+Caused by: java.lang.ClassNotFoundException: javax.xml.bind.ValidationException
+	at ControllerTest.setUp(ControllerTest.java:63)
+
