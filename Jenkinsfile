@@ -6,6 +6,7 @@ pipeline {
             choices: ['one', 'two', 'three'],
             description: ''
         )
+        booleanParam(name: 'pushArtifact', defaultValue: true, description: 'Should this artifact be pushed to jfrog artifactory?')
     }
     stages {
         stage('PreBuild') {
@@ -30,6 +31,9 @@ pipeline {
             steps {
                 echo 'Build Successful'
                 echo 'Now checking if the deploytoartifactory is set to true'
+                when {
+                    environment name: 'pushArtifact', value: 'true'
+                }
                 rtUpload (
                     serverId: 'jfrog-testing-docker-server',
                     spec: '''{
