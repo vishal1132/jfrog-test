@@ -31,20 +31,21 @@ pipeline {
             steps {
                 echo 'Build Successful'
                 echo 'Now checking if the deploytoartifactory is set to true'
-                when {
-                    environment name: 'pushArtifact', value: 'true'
+                script{
+                    if(pushArtifact) {
+                        rtUpload (
+                            serverId: 'jfrog-testing-docker-server',
+                            spec: '''{
+                                "files": [
+                                    {
+                                        "pattern": "**/*.war",
+                                        "target": "example-repo-local/"
+                                    }
+                                ]
+                            }'''
+                        )                        
+                    }
                 }
-                rtUpload (
-                    serverId: 'jfrog-testing-docker-server',
-                    spec: '''{
-                        "files": [
-                            {
-                                "pattern": "**/*.war",
-                                "target": "example-repo-local/"
-                            }
-                        ]
-                    }'''
-                )
             }
         }
     }
