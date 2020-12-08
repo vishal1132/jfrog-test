@@ -32,7 +32,7 @@ pipeline {
                 echo 'Build Successful'
                 echo 'Now checking if the deploytoartifactory is set to true'
                 script{
-                    if(pushArtifact) {
+                    if($pushArtifact) {
                         rtUpload (
                             serverId: 'jfrog-testing-docker-server',
                             spec: '''{
