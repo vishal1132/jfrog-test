@@ -17,10 +17,10 @@ pipeline {
                 echo 'Build Successful'
             }
         }
-        stage('AfterAfterBuild') {
-            failure {
-                mail to: vishal.sharma@blackngreen.com, subject: 'The Pipeline failed :('
-            }
-        }
+        // stage('AfterAfterBuild') {
+        //     failure {
+        //         mail to: 'vishal.sharma@blackngreen.com', subject: 'The Pipeline failed :(', body: 'The pipeline build got failed'
+        //     }
+        // }
      }
 }
