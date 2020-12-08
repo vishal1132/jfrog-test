@@ -13,7 +13,7 @@ pipeline {
                 echo "Choice: ${params.CHOICE}"
                 sh "echo Choice: ${params.CHOICE}"
                 sh 'echo Choice: $CHOICE'
-                echo "string chosend is equal to ${SOME}"
+                echo "string chosen is equal to ${SOME}"
             }
         }
         stage('Build') {
@@ -29,7 +29,20 @@ pipeline {
             }
             steps {
                 echo 'Build Successful'
+                echo 'Now checking if the deploytoartifactory is set to true'
+                rtUpload (
+                    serverId: 'jfrog-testing-docker-server',
+                    spec: '''{
+                        "files": [
+                            {
+                                "pattern": "**/*.war",
+                                "target": "example-repo-local/"
+                            }
+                        ]
+                    }''',
             }
         }
-     }
+    }
 }
+
+//jfrog-testing-docker-server
