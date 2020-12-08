@@ -13,6 +13,7 @@ pipeline {
                 echo "Choice: ${params.CHOICE}"
                 sh "echo Choice: ${params.CHOICE}"
                 sh 'echo Choice: $CHOICE'
+                echo "string chosend is equal to ${SOME}"
             }
         }
         stage('Build') {
