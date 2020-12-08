@@ -17,6 +17,7 @@ public class HelloWorldController {
 
 		String environment = System.getenv("ENVIRONMENT");
 		System.out.println("for new commit 4");
+		System.out.println("for new branch dev_new_test")
 		ModelAndView mv = new ModelAndView("helloworld");
 		mv.addObject("message", message);
 		mv.addObject("environment", environment);
