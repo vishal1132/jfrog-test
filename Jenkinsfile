@@ -1,7 +1,20 @@
 pipeline {
     agent any
-
+    parameters {
+        choice(
+            name: 'CHOICE',
+            choices: ['one', 'two', 'three'],
+            description: ''
+        )
+    }
     stages {
+        stage('PreBuild') {
+            steps {
+                echo "Choice: ${params.CHOICE}"
+                sh "echo Choice: ${params.CHOICE}"
+                sh 'echo Choice: $CHOICE'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'make build'
@@ -17,10 +30,5 @@ pipeline {
                 echo 'Build Successful'
             }
         }
-        // stage('AfterAfterBuild') {
-        //     failure {
-        //         mail to: 'vishal.sharma@blackngreen.com', subject: 'The Pipeline failed :(', body: 'The pipeline build got failed'
-        //     }
-        // }
      }
 }
