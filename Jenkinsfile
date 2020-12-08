@@ -39,7 +39,8 @@ pipeline {
                                 "target": "example-repo-local/"
                             }
                         ]
-                    }''',
+                    }'''
+                )
             }
         }
     }
