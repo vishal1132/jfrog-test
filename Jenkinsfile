@@ -31,6 +31,8 @@ pipeline {
             steps {
                 echo 'Build Successful'
             }
+        }
+        stage('DeployArtifact'){
             when  {
                 expression {
                     params.pushArtifact==true
@@ -49,7 +51,7 @@ pipeline {
                                     }
                                 ]
                             }'''
-                        )                        
+                        )                   
                 }
             }
         }
