@@ -30,9 +30,15 @@ pipeline {
             }
             steps {
                 echo 'Build Successful'
+            }
+            when  {
+                expression {
+                    params.pushArtifact==true
+                }
+            }
+            steps {
                 echo 'Now checking if the deploytoartifactory is set to true'
                 script{
-                    if($pushArtifact) {
                         rtUpload (
                             serverId: 'jfrog-testing-docker-server',
                             spec: '''{
@@ -44,7 +50,6 @@ pipeline {
                                 ]
                             }'''
                         )                        
-                    }
                 }
             }
         }
